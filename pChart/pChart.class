@@ -2635,8 +2635,8 @@
 
      /* Calculate all polygons */
      $Angle    = 0; $CDev = 5;
-     $TopPlots = ""; $BotPlots = "";
-     $aTopPlots = ""; $aBotPlots = "";
+     $TopPlots = array(); $BotPlots = array();
+     $aTopPlots = array(); $aBotPlots = array();
      foreach($iValues as $Key => $Value)
       {
        $XCenterPos = cos(($Angle-$CDev+($Value*$SpliceRatio+$SpliceDistanceRatio)/2) * 3.1418 / 180 ) * $SpliceDistance + $XPos;
@@ -2723,9 +2723,9 @@
           {
            $Plot++;
            if ( $Plot % 2 == 1 )
-            $Plots[] = $Value2;
+            $Plots = $Value2;
            else
-            $Plots[] = $Value2+$i;
+            $Plots = $Value2+$i;
           }
          imagefilledpolygon($this->Picture,$Plots,(count($Plots)+1)/2,$C_GraphLo);
 
