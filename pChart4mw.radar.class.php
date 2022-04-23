@@ -18,9 +18,15 @@
 		 *							parse wiki text, expand braces, register link relationships and dependencies etc.
 		 * @returns			String	HTML code to show the pie chart
 		 */
-		public static function render( $input, $args, $parser ) {
+		public static function render( $input, $args, $parser, $frame = null ) {
+			foreach( $args as $key => $value ){
+				if( substr( trim( $value ), 0, 3 ) === '{{{' ){
+					$args[ $key ] = $parser->recursiveTagParse( $value, $frame );
+				}
+			}
+
 			// Recursively parse the wikitext
-			$parsedText = $parser->recursiveTagParse( $input );			
+			$parsedText = $parser->recursiveTagParse( $input, $frame );
 
 			// Create the chart
 			$chart = new pChart4mwRadar();
@@ -82,6 +88,9 @@
 				$this->chartArgs[ "stripecolor" ] = wfPChart4mwhtml2rgb( $args[ "stripecolor" ] );
 			}
 			
+			// in order to vertical align center, should disable labels
+			$this->chartArgs[ "labels" ] = false;
+			
 			return $this->chartArgs;
 		}		
 		
@@ -96,6 +105,7 @@
 			// Set radar-specific default arguments
 			$args[ "filled" ] = false;
 			$args[ "striped" ] = false;
+			$args[ "labels" ] = false;
 			$args[ "stripecolor" ] = array( 200, 200, 200 );
 			$args[ "opacity" ] = 50;
 

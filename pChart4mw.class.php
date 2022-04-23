@@ -67,6 +67,7 @@
 			}
 
 			// Parse the raw data. This raw data is in CSV format, with lines separated by a \n
+			$rawData = str_replace( ';', "\n", $rawData );
 			$lines = explode( "\n", $rawData );
 			$serieNames = array();
 			$xlabels = false;
@@ -182,6 +183,18 @@
 
 			// Match the number of serie names with the number of series
 			$serieNames = array_pad( $serieNames, $numberColumns, "" );
+
+			$serieNamesEmpty = true;
+			foreach ( $serieNames as $serieName ) {
+				if ( !empty( $serieName ) ) {
+					$serieNamesEmpty = false;
+					break;
+				}
+			}
+			// Remove legend when serie names is empty
+			if ( $serieNamesEmpty ) {
+				$this->chartArgs[ "legend" ] = false;
+			}
 
 			// Check whether any data is entered. If not, no further action has to be done
 			if( $numberRows == 0 || $numberColumns == 0 ) {
@@ -619,17 +632,17 @@
 
 				// Default margin in pixels
 				"marginX"			=> 10,
-				"marginY"			=> 10,
+				"marginY"			=> 20,
 
 				// Fontsize used to write text into the chart (labels and legend)
-				"textsize"			=> 8,
-				"textfont"			=> "tahoma.ttf",
+				"textsize"			=> 9,
+				"textfont"			=> "NotoSansCJKsc-Regular.otf",
 
 				// Default title, color for the title and font size
 				"title"				=> "",
 				"titlecolor"		=> array( 119, 119, 119 ),
-				"titlesize"			=> 10,
-				"titlefont"         => "tahoma.ttf",
+				"titlesize"			=> 12,
+				"titlefont"         => "NotoSansCJKsc-Regular.otf",
 
 				// Default title for the axes, unit (shown after the number, e.g. 150kg) and format (number, time, date)
 				"xtitle"			=> "",
@@ -771,7 +784,7 @@
 			// Parse arguments and data
 			$this->parseData( $input );
 			$this->parseArgs( $args );
-			$this->updateDataBasedOnArgs();
+			$this->updateArgsBasedOnData();
 
 			// Draw the graph
 			$this->drawChart();
@@ -828,7 +841,7 @@
 				$imgURL = htmlspecialchars($this->getUploadDir() . "/" . $this->filename );
 			}
 
-			return '<p><b><img src="' . $imgURL . '" alt="pChart" /></b></p>';
+			return '<img src="' . $imgURL . '" alt="pChart" />';
 		}
 
 		// **************************************************************************************

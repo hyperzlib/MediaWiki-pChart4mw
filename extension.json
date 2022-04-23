@@ -39,13 +39,13 @@
 			"value": ""
 		},
 		"PChart4mwPChartPath": {
-			"value": "/home/ssd_aiowiki/aiowiki.com/w/extensions/pChart4mw/pChart"
+			"value": "extensions/pChart4mw/pChart"
 		},
 		"PChart4mwFontPath": {
-			"value": "/home/ssd_aiowiki/aiowiki.com/w/extensions/pChart4mw/fonts"
+			"value": "extensions/pChart4mw/fonts"
 		},
 		"PChart4mwDefaultColorSchemeDir": {
-			"value": "/home/ssd_aiowiki/aiowiki.com/w/extensions/pChart4mw/colorschemes"
+			"value": "extensions/pChart4mw/colorschemes"
 		}
 	},
 	"manifest_version": 2
