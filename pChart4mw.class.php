@@ -953,8 +953,18 @@
 
 			// If labels are shown, take their size into account
 			if( $args[ "labels" ] ) {
-				$left += $this->getWidthYLabel() + $args[ "marginX" ];
-				$bottom -= ( $this->getHeightXLabel() + $args[ "marginY" ] );
+				// These charts should align center
+				if ( $this->type == "radar"  || $this->type == "pie") {
+					$labelWidth = $this->getWidthYLabel();
+					$labelHeight = $this->getHeightXLabel();
+					$left += $labelWidth;
+					$right -= $labelWidth;
+					$top += $labelHeight;
+					$bottom -= $labelHeight;
+				} else {
+					$left += $this->getWidthYLabel() + $args[ "marginX" ];
+					$bottom -= ( $this->getHeightXLabel() + $args[ "marginY" ] );
+				}
 			}
 
 			// If the legend is shown, we have to add some to the margins

@@ -88,9 +88,6 @@
 				$this->chartArgs[ "stripecolor" ] = wfPChart4mwhtml2rgb( $args[ "stripecolor" ] );
 			}
 			
-			// in order to vertical align center, should disable labels
-			$this->chartArgs[ "labels" ] = false;
-			
 			return $this->chartArgs;
 		}		
 		
@@ -105,7 +102,6 @@
 			// Set radar-specific default arguments
 			$args[ "filled" ] = false;
 			$args[ "striped" ] = false;
-			$args[ "labels" ] = false;
 			$args[ "stripecolor" ] = array( 200, 200, 200 );
 			$args[ "opacity" ] = 50;
 
